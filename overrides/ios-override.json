@@ -362,13 +362,21 @@
                     "description": "Add ATB to Duck.ai",
                     "minSupportedVersion": "7.204.0"
                 },
+                "iPadAIChatToggle": {
+                    "state": "enabled",
+                    "minSupportedVersion": "7.211.0"
+                },
                 "supportsSyncChatsDeletion": {
                     "state": "enabled",
                     "minSupportedVersion": "7.208.2"
                 },
                 "multiplePageContexts": {
+                    "state": "enabled",
+                    "minSupportedVersion": "7.211.0"
+                },
+                "voiceShortcut": {
                     "state": "internal",
-                    "minSupportedVersion": "7.210.0"
+                    "minSupportedVersion": "7.212.0"
                 }
             },
             "settings": {
@@ -1172,6 +1180,23 @@
                                     }
                                 ]
                             }
+                        ],
+                        "conditionalChanges": [
+                            {
+                                "condition": {
+                                    "urlPattern": "https://visa.vfsglobal.com/tur/tr/bgr/login*"
+                                },
+                                "patchSettings": [
+                                    {
+                                        "path": "/formTypeSettings/-",
+                                        "op": "add",
+                                        "value": {
+                                            "selector": "form",
+                                            "type": "login"
+                                        }
+                                    }
+                                ]
+                            }
                         ]
                     }
                 },
@@ -1228,6 +1253,11 @@
                 "onboardingExperiment": {
                     "state": "enabled",
                     "minSupportedVersion": "7.209.0",
+                    "targets": [
+                        {
+                            "localeLanguage": "en"
+                        }
+                    ],
                     "cohorts": [
                         {
                             "name": "control",
@@ -1810,9 +1840,14 @@
                             {
                                 "rule": "www3.doubleclick.net",
                                 "domains": [
-                                    "scrolller.com"
+                                    "scrolller.com",
+                                    "rocketnews24.com",
+                                    "wunderground.com"
                                 ],
-                                "reason": "https://github.com/duckduckgo/privacy-configuration/issues/1968"
+                                "reason": [
+                                    "https://github.com/duckduckgo/privacy-configuration/issues/1968",
+                                    "rocketnews24.com, wunderground.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                                ]
                             }
                         ]
                     },
@@ -1842,6 +1877,13 @@
                     },
                     "google.com": {
                         "rules": [
+                            {
+                                "rule": "marketingplatform.google.com/about/enterprise/",
+                                "domains": [
+                                    "scrolller.com"
+                                ],
+                                "reason": "scrolller.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "marketingplatform.google.com/about/enterprise",
                                 "domains": [
@@ -1889,6 +1931,13 @@
                     "monetate.net": {
                         "rules": [
                             {
+                                "rule": "monetate.net/img",
+                                "domains": [
+                                    "kleen-ritecorp.com"
+                                ],
+                                "reason": "kleen-ritecorp.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
                                 "rule": "monetate.net",
                                 "domains": [
                                     "kleen-ritecorp.com"
@@ -1915,6 +1964,13 @@
                     "datadoghq-browser-agent.com": {
                         "rules": [
                             {
+                                "rule": "www.datadoghq-browser-agent.com/datadog-logs-v4.js",
+                                "domains": [
+                                    "resy.com"
+                                ],
+                                "reason": "resy.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
                                 "rule": "datadoghq-browser-agent.com",
                                 "domains": [
                                     "resy.com"
@@ -1936,6 +1992,13 @@
                     },
                     "tiqcdn.com": {
                         "rules": [
+                            {
+                                "rule": "tags.tiqcdn.com/utag/cbsi/",
+                                "domains": [
+                                    "<all>"
+                                ],
+                                "reason": "<all> - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "tags.tiqcdn.com/utag/",
                                 "domains": [
@@ -2476,9 +2539,15 @@
                         "steps": [
                             {
                                 "percent": 10
+                            },
+                            {
+                                "percent": 100
                             }
                         ]
                     }
+                },
+                "autoplayBlocking": {
+                    "state": "internal"
                 }
             }
         },
@@ -2529,6 +2598,10 @@
                 "foregroundRunningOnAppActive": {
                     "state": "enabled",
                     "minSupportedVersion": "7.201.1"
+                },
+                "goToMarket": {
+                    "state": "enabled",
+                    "minSupportedVersion": "7.210.0"
                 }
             },
             "minSupportedVersion": "7.201.1"
@@ -2583,20 +2656,48 @@
             "state": "enabled",
             "minSupportedVersion": "7.202.0"
         },
+        "hover": {
+            "state": "disabled"
+        },
+        "pageObserver": {
+            "state": "disabled"
+        },
+        "contextMenu": {
+            "state": "disabled"
+        },
         "forceDarkModeOnWebsites": {
-            "state": "internal",
+            "state": "enabled",
             "minSupportedVersion": "7.210.0",
             "features": {
                 "featureRollout": {
-                    "state": "internal"
+                    "state": "enabled",
+                    "rollout": {
+                        "steps": [
+                            {
+                                "percent": 10
+                            },
+                            {
+                                "percent": 100
+                            }
+                        ]
+                    }
                 }
             }
         },
         "webExtensions": {
-            "state": "internal",
+            "state": "enabled",
+            "minSupportedVersion": "7.210.0",
             "features": {
-                "embeddedExtension": {
-                    "state": "internal"
+                "embedded": {
+                    "state": "internal",
+                    "minSupportedVersion": "7.211.0",
+                    "rollout": {
+                        "steps": [
+                            {
+                                "percent": 50
+                            }
+                        ]
+                    }
                 }
             }
         }

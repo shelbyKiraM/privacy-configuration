@@ -507,6 +507,25 @@
                 "maxHistoryCount": 10
             }
         },
+        "duckAiDataClearing": {
+            "state": "enabled",
+            "exceptions": [],
+            "settings": {
+                "chatsLocalStorageKeys": [
+                    "savedAIChats"
+                ],
+                "chatImagesIndexDbNameObjectStoreNamePairs": [
+                    [
+                        "savedAIChatData",
+                        "chat-images"
+                    ],
+                    [
+                        "savedAIChatData",
+                        "saved-chats"
+                    ]
+                ]
+            }
+        },
         "ampLinks": {
             "state": "enabled",
             "exceptions": [
@@ -1018,6 +1037,23 @@
                                     }
                                 ]
                             }
+                        ],
+                        "conditionalChanges": [
+                            {
+                                "condition": {
+                                    "urlPattern": "https://visa.vfsglobal.com/tur/tr/bgr/login*"
+                                },
+                                "patchSettings": [
+                                    {
+                                        "path": "/formTypeSettings/-",
+                                        "op": "add",
+                                        "value": {
+                                            "selector": "form",
+                                            "type": "login"
+                                        }
+                                    }
+                                ]
+                            }
                         ]
                     }
                 },
@@ -1264,6 +1300,20 @@
                     "minSupportedVersion": 52320000
                 },
                 "useHarmony": {
+                    "state": "enabled",
+                    "minSupportedVersion": 52710000,
+                    "rollout": {
+                        "steps": [
+                            {
+                                "percent": 1
+                            },
+                            {
+                                "percent": 5
+                            }
+                        ]
+                    }
+                },
+                "readFromHarmony": {
                     "state": "disabled"
                 },
                 "sendSanitizedStackTraces": {
@@ -1561,6 +1611,9 @@
                         "steps": [
                             {
                                 "percent": 5
+                            },
+                            {
+                                "percent": 10
                             }
                         ]
                     }
@@ -2078,26 +2131,7 @@
             "state": "enabled",
             "minSupportedVersion": 52700000,
             "exceptions": [],
-            "settings": {
-                "additionalCheck": "disabled",
-                "conditionalChanges": [
-                    {
-                        "condition": {
-                            "experiment": {
-                                "experimentName": "contentScopeExperiment3",
-                                "cohort": "treatment"
-                            }
-                        },
-                        "patchSettings": [
-                            {
-                                "op": "replace",
-                                "path": "/additionalCheck",
-                                "value": "enabled"
-                            }
-                        ]
-                    }
-                ]
-            }
+            "settings": {}
         },
         "navigatorInterface": {
             "state": "enabled",
@@ -2263,6 +2297,12 @@
                             },
                             {
                                 "percent": 1
+                            },
+                            {
+                                "percent": 2
+                            },
+                            {
+                                "percent": 5
                             }
                         ]
                     }
@@ -2356,6 +2396,13 @@
                     },
                     "datadoghq-browser-agent.com": {
                         "rules": [
+                            {
+                                "rule": "www.datadoghq-browser-agent.com/datadog-logs-v4.js",
+                                "domains": [
+                                    "resy.com"
+                                ],
+                                "reason": "resy.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "datadoghq-browser-agent.com",
                                 "domains": [
@@ -3214,6 +3261,9 @@
                 },
                 "privacyProCta": {
                     "state": "enabled"
+                },
+                "privacyProCtaSkippedOnboarding": {
+                    "state": "disabled"
                 }
             }
         },
@@ -3431,6 +3481,10 @@
                     "state": "enabled"
                 },
                 "newDesktopBrowserSettingEnabled": {
+                    "minSupportedVersion": 52690000,
+                    "state": "enabled"
+                },
+                "whatsNewEnabled": {
                     "minSupportedVersion": 52690000,
                     "state": "enabled"
                 }
@@ -3657,12 +3711,42 @@
                     ]
                 },
                 "contentScopeExperiment3": {
+                    "state": "disabled",
+                    "minSupportedVersion": 52700000,
+                    "rollout": {
+                        "steps": [
+                            {
+                                "percent": 10
+                            },
+                            {
+                                "percent": 50
+                            },
+                            {
+                                "percent": 100
+                            }
+                        ]
+                    },
+                    "cohorts": [
+                        {
+                            "name": "control",
+                            "weight": 1
+                        },
+                        {
+                            "name": "treatment",
+                            "weight": 1
+                        }
+                    ]
+                },
+                "contentScopeExperiment4": {
                     "state": "enabled",
                     "minSupportedVersion": 52700000,
                     "rollout": {
                         "steps": [
                             {
                                 "percent": 10
+                            },
+                            {
+                                "percent": 50
                             }
                         ]
                     },
@@ -3784,6 +3868,16 @@
             "exceptions": [],
             "minSupportedVersion": 52610000
         },
+        "remoteMessaging": {
+            "state": "enabled",
+            "exceptions": [],
+            "features": {
+                "remoteMessageModalSurface": {
+                    "state": "enabled",
+                    "minSupportedVersion": 52690000
+                }
+            }
+        },
         "webViewClipboardImage": {
             "state": "enabled",
             "exceptions": []
@@ -3827,6 +3921,16 @@
                 }
             }
         },
+        "wideEvents": {
+            "state": "enabled",
+            "exceptions": [],
+            "features": {
+                "sendWideEventsViaPost": {
+                    "state": "enabled",
+                    "minSupportedVersion": 52640000
+                }
+            }
+        },
         "databaseProvider": {
             "state": "enabled",
             "exceptions": [],
@@ -3860,6 +3964,13 @@
                         ]
                     }
                 }
+            }
+        },
+        "appStartupMetrics": {
+            "state": "enabled",
+            "exceptions": [],
+            "settings": {
+                "sampling": 0.01
             }
         },
         "pageContext": {
@@ -3907,6 +4018,10 @@
                     }
                 ]
             }
+        },
+        "webDetection": {
+            "state": "enabled",
+            "minSupportedVersion": 52700000
         }
     },
     "unprotectedTemporary": [],

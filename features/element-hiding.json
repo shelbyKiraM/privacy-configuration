@@ -1071,6 +1071,15 @@
                 ]
             },
             {
+                "domain": "business-standard.com",
+                "rules": [
+                    {
+                        "selector": ".advertisement-bg",
+                        "type": "closest-empty"
+                    }
+                ]
+            },
+            {
                 "domain": "businessinsider.com",
                 "rules": [
                     {
@@ -1291,6 +1300,27 @@
                                 "value": "3rem"
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "domain": "ctinsider.com",
+                "rules": [
+                    {
+                        "type": "disable-default"
+                    },
+                    {
+                        "selector": "[data-block-type='ad']",
+                        "type": "closest-empty"
+                    }
+                ]
+            },
+            {
+                "domain": "ctvnews.ca",
+                "rules": [
+                    {
+                        "selector": "[class*='-ads-custom']",
+                        "type": "closest-empty"
                     }
                 ]
             },
@@ -2237,6 +2267,19 @@
                 ]
             },
             {
+                "domain": "inews.co.uk",
+                "rules": [
+                    {
+                        "selector": ".inews__advert",
+                        "type": "closest-empty"
+                    },
+                    {
+                        "selector": ".inews__post-section__leaderboard-ad",
+                        "type": "closest-empty"
+                    }
+                ]
+            },
+            {
                 "domain": "insider.com",
                 "rules": [
                     {
@@ -2435,6 +2478,15 @@
                     {
                         "selector": ".zmgad-full-width",
                         "type": "hide-empty"
+                    }
+                ]
+            },
+            {
+                "domain": "lifestories7.com",
+                "rules": [
+                    {
+                        "selector": "#zdn-adblock-overlay",
+                        "type": "hide"
                     }
                 ]
             },
@@ -3389,6 +3441,18 @@
                 ]
             },
             {
+                "domain": "scimagojr.com",
+                "rules": [
+                    {
+                        "type": "disable-default"
+                    },
+                    {
+                        "selector": ".contentAds",
+                        "type": "hide-empty"
+                    }
+                ]
+            },
+            {
                 "domain": "scmp.com",
                 "rules": [
                     {
@@ -3819,6 +3883,18 @@
                                 "value": "none"
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "domain": "timesunion.com",
+                "rules": [
+                    {
+                        "type": "disable-default"
+                    },
+                    {
+                        "selector": "[data-block-type='ad']",
+                        "type": "hide-empty"
                     }
                 ]
             },
@@ -4613,6 +4689,32 @@
                     {
                         "type": "hide",
                         "selector": "views-promo-card:first-of-type"
+                    }
+                ]
+            },
+            {
+                "domain": "okdiario.com",
+                "rules": [
+                    {
+                        "type": "hide-empty",
+                        "selector": ".publicidad"
+                    },
+                    {
+                        "type": "hide-empty",
+                        "selector": ".ad-slot-ph"
+                    },
+                    {
+                        "type": "hide-empty",
+                        "selector": ".catfish-space"
+                    }
+                ]
+            },
+            {
+                "domain": "n-tv.de",
+                "rules": [
+                    {
+                        "type": "closest-empty",
+                        "selector": ".gujAd"
                     }
                 ]
             }

@@ -407,6 +407,14 @@
                 "supportsSyncChatsDeletion": {
                     "state": "enabled",
                     "minSupportedVersion": "1.178.3"
+                },
+                "ntpRecentChats": {
+                    "state": "enabled",
+                    "minSupportedVersion": "1.181.0"
+                },
+                "aiChatOmnibarTools": {
+                    "state": "enabled",
+                    "minSupportedVersion": "1.182.0"
                 }
             },
             "settings": {
@@ -528,6 +536,10 @@
                 "clickActionDelayReductionOptimization": {
                     "state": "enabled",
                     "minSupportedVersion": "1.171.0"
+                },
+                "webViewUserAgent": {
+                    "state": "enabled",
+                    "minSupportedVersion": "1.182.0"
                 }
             },
             "minSupportedVersion": "1.70.0"
@@ -1178,6 +1190,23 @@
                                     }
                                 ]
                             }
+                        ],
+                        "conditionalChanges": [
+                            {
+                                "condition": {
+                                    "urlPattern": "https://visa.vfsglobal.com/tur/tr/bgr/login*"
+                                },
+                                "patchSettings": [
+                                    {
+                                        "path": "/formTypeSettings/-",
+                                        "op": "add",
+                                        "value": {
+                                            "selector": "form",
+                                            "type": "login"
+                                        }
+                                    }
+                                ]
+                            }
                         ]
                     }
                 }
@@ -1474,6 +1503,14 @@
                     {
                         "domain": "cnn.com",
                         "reason": "https://github.com/duckduckgo/privacy-configuration/pull/4618"
+                    },
+                    {
+                        "domain": "vanguard.com",
+                        "reason": "https://github.com/duckduckgo/privacy-configuration/pull/4714"
+                    },
+                    {
+                        "domain": "hilton.com",
+                        "reason": "https://github.com/duckduckgo/privacy-configuration/pull/4722"
                     }
                 ],
                 "webViewDefault": [
@@ -1635,14 +1672,40 @@
                             {
                                 "rule": "www3.doubleclick.net",
                                 "domains": [
-                                    "scrolller.com"
+                                    "scrolller.com",
+                                    "rocketnews24.com",
+                                    "wunderground.com"
                                 ],
-                                "reason": "https://github.com/duckduckgo/privacy-configuration/issues/1968"
+                                "reason": [
+                                    "https://github.com/duckduckgo/privacy-configuration/issues/1968",
+                                    "rocketnews24.com, wunderground.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                                ]
                             }
                         ]
                     },
                     "facebook.com": {
                         "rules": [
+                            {
+                                "rule": "facebook.com/plugins/customer_chat/",
+                                "domains": [
+                                    "nextdoor.com"
+                                ],
+                                "reason": "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
+                                "rule": "facebook.com/v6.0/plugins/customer_chat/",
+                                "domains": [
+                                    "nextdoor.com"
+                                ],
+                                "reason": "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
+                                "rule": "facebook.com/v6.0/plugins/customerchat.php",
+                                "domains": [
+                                    "nextdoor.com"
+                                ],
+                                "reason": "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "facebook.com",
                                 "domains": [
@@ -1657,11 +1720,27 @@
                             {
                                 "rule": "connect.facebook.net/en_UK/sdk.js",
                                 "domains": [
-                                    "globalcyclingnetwork.com"
+                                    "globalcyclingnetwork.com",
+                                    "nextdoor.com"
                                 ],
                                 "reason": [
-                                    "https://github.com/duckduckgo/privacy-configuration/issues/1568"
+                                    "https://github.com/duckduckgo/privacy-configuration/issues/1568",
+                                    "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
                                 ]
+                            },
+                            {
+                                "rule": "connect.facebook.net/en_US/all.js",
+                                "domains": [
+                                    "nextdoor.com"
+                                ],
+                                "reason": "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
+                                "rule": "connect.facebook.net/en_US/sdk/xfbml.customerchat.js",
+                                "domains": [
+                                    "nextdoor.com"
+                                ],
+                                "reason": "nextdoor.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
                             },
                             {
                                 "rule": "connect.facebook.net/en_US/sdk.js",
@@ -1710,6 +1789,13 @@
                     "google.com": {
                         "rules": [
                             {
+                                "rule": "marketingplatform.google.com/about/enterprise/",
+                                "domains": [
+                                    "scrolller.com"
+                                ],
+                                "reason": "scrolller.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
+                            {
                                 "rule": "marketingplatform.google.com/about/enterprise",
                                 "domains": [
                                     "scrolller.com"
@@ -1731,21 +1817,6 @@
                             }
                         ]
                     },
-                    "googletagservices.com": {
-                        "rules": [
-                            {
-                                "rule": "www.googletagservices.com/tag/js/gpt.js",
-                                "domains": [
-                                    "wp.pl",
-                                    "idahonews.com"
-                                ],
-                                "reason": [
-                                    "Adwall appears which reappears when dismissed. The adwall prevents interaction with the page.",
-                                    "idahonews.com - https://github.com/duckduckgo/privacy-configuration/issues/1834"
-                                ]
-                            }
-                        ]
-                    },
                     "google-analytics.com": {
                         "rules": [
                             {
@@ -1759,6 +1830,13 @@
                     },
                     "monetate.net": {
                         "rules": [
+                            {
+                                "rule": "monetate.net/img",
+                                "domains": [
+                                    "kleen-ritecorp.com"
+                                ],
+                                "reason": "kleen-ritecorp.com - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "monetate.net",
                                 "domains": [
@@ -1796,6 +1874,13 @@
                     },
                     "tiqcdn.com": {
                         "rules": [
+                            {
+                                "rule": "tags.tiqcdn.com/utag/cbsi/",
+                                "domains": [
+                                    "<all>"
+                                ],
+                                "reason": "<all> - https://github.com/duckduckgo/privacy-configuration/pull/4645"
+                            },
                             {
                                 "rule": "tags.tiqcdn.com/utag/",
                                 "domains": [
@@ -2096,6 +2181,9 @@
                             "drive.google.com"
                         ]
                     }
+                },
+                "memoryUsageReporting": {
+                    "state": "disabled"
                 }
             }
         },
@@ -2188,6 +2276,15 @@
             "state": "enabled",
             "minSupportedVersion": "1.172.0"
         },
+        "hover": {
+            "state": "enabled"
+        },
+        "pageObserver": {
+            "state": "enabled"
+        },
+        "contextMenu": {
+            "state": "enabled"
+        },
         "updates": {
             "state": "enabled",
             "exceptions": [],
@@ -2198,11 +2295,47 @@
                 }
             }
         },
+        "forceDarkModeOnWebsites": {
+            "state": "internal",
+            "minSupportedVersion": "1.180.0",
+            "features": {
+                "featureRollout": {
+                    "state": "internal"
+                }
+            },
+            "exceptions": [
+                {
+                    "domain": "duck.ai",
+                    "reason": "Prevents any modification of dark mode colors on our websites"
+                },
+                {
+                    "domain": "app.asana.com",
+                    "reason": "Site natively supports dark mode, forcing it causes visual issues"
+                },
+                {
+                    "domain": "github.com",
+                    "reason": "Site natively supports dark mode, forcing it causes visual issues"
+                },
+                {
+                    "domain": "youtube.com",
+                    "reason": "Site natively supports dark mode, forcing it causes visual issues"
+                }
+            ]
+        },
         "webExtensions": {
             "state": "internal",
+            "minSupportedVersion": "1.181.0",
             "features": {
-                "embeddedExtension": {
-                    "state": "internal"
+                "embedded": {
+                    "state": "internal",
+                    "minSupportedVersion": "1.181.0",
+                    "rollout": {
+                        "steps": [
+                            {
+                                "percent": 50
+                            }
+                        ]
+                    }
                 }
             }
         }
